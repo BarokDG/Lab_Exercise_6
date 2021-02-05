@@ -4,10 +4,10 @@ const form = document.querySelector("#task-form"); //The form at the top
 const filter = document.querySelector("#filter"); //the task filter text field
 const taskList = document.querySelector(".collection"); //The UL
 const clearBtn = document.querySelector(".clear-tasks"); //the all task clear button
-const reloadIcon = document.querySelector(".fa"); //the reload button at the top navigation
-
 const sortAscBtn = document.querySelector("#sortAsc");
 const sortDescBtn = document.querySelector("#sortDesc");
+
+const reloadIcon = document.querySelector(".fa"); //the reload button at the top navigation
 
 //DB variable
 
@@ -68,24 +68,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // create a new object with the form info
         let today = new Date();
-        let dateText =
-            today.getFullYear() +
+        let dateValue =
+            today.getDate() +
             "-" +
             today.getMonth() +
             "-" +
-            today.getDate() +
+            today.getFullYear() +
             " " +
             today.getHours() +
             ":" +
             today.getMinutes() +
             ":" +
-            today.getSeconds() +
-            ":" +
-            today.getMilliseconds();
+            today.getSeconds();
 
         let newTask = {
             taskname: taskInput.value,
-            taskDate: dateText,
+            taskDate: dateValue,
         };
 
         // Insert the object into the database
