@@ -7,7 +7,8 @@
     <!-- Materialize Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Font Owesome Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Custom Css -->
     <link rel="stylesheet" href="assets/css/style.css">
 
@@ -56,6 +57,13 @@
                     </div>
                 </div>
                 <div class="card-action">
+                    <a class="dropdown-trigger btn right #000 black" href="#" data-target="collectionList">Filter</a>
+
+                    <ul id="collectionList" class="dropdown-content">
+                        <li class="#000 white" id="sortAsc"><a href="#!" class="sortAsc">Asc</a></li>
+                        <li class="#000 white" id="sortDesc"><a href="#!" class="sortDec">Desc</a></li>
+                    </ul>
+
                     <h5 id="task-title">List of Tasks</h5>
                     <div class="input-field col s12">
                         <input type="search" name="filter" id="filter">
@@ -74,7 +82,8 @@
     <!-- Card End  -->
 
     <!-- Jquery Compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!-- Materialize Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
