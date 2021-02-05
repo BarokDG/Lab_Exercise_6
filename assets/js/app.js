@@ -5,6 +5,7 @@ const filter = document.querySelector("#filter"); //the task filter text field
 const taskList = document.querySelector(".collection"); //The UL
 const clearBtn = document.querySelector(".clear-tasks"); //the all task clear button
 const reloadIcon = document.querySelector(".fa"); //the reload button at the top navigation
+
 const sortAscBtn = document.querySelector("#sortAsc");
 const sortDescBtn = document.querySelector("#sortDesc");
 
@@ -14,9 +15,7 @@ let DB;
 
 // Add Event Listener [on Load]
 document.addEventListener("DOMContentLoaded", () => {
-    filter.addEventListener("keyup", filterTasks);
-    sortAscBtn.addEventListener("click", displayTaskList);
-    sortDescBtn.addEventListener("click", sort);
+
     // create the database
     let TasksDB = indexedDB.open("tasks", 1);
 
@@ -109,58 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-    function sort() {
-        let tasks = [];
-        let cursor;
-        let readRequest = DB.transaction(["tasks"])
-            .objectStore("tasks")
-            .openCursor();
-
-        readRequest.onerror = function () {
-            console.log("Error Reading");
-        };
-
-        readRequest.onsuccess = function (e) {
-            cursor = e.target.result;
-
-            if (cursor) {
-                tasks.push(cursor.value);
-                cursor.continue();
-            }
-        };
-
-        setTimeout(() => {
-            let sortedArray = Array.from(bubbleSortD(tasks));
-            while (taskList.firstChild) {
-                taskList.removeChild(taskList.firstChild);
-            }
-
-            for (let i = 0; i < sortedArray.length; i++) {
-                const li = document.createElement("li");
-                //add Attribute for delete
-                li.setAttribute("data-task-id", sortedArray[i].id);
-                li.className = "collection-item";
-                // Create text node and append it
-
-                li.appendChild(document.createTextNode(sortedArray[i].taskname));
-
-                // Create new element for the link
-                const link = document.createElement("a");
-                // Add class and the x marker for a
-                link.className = "delete-item secondary-content";
-                link.innerHTML = `
-                <i class="fa fa-remove"></i>
-               &nbsp;
-               <a href="./edit.html?id=${sortedArray[i].id}"><i class="fa fa-edit"></i> </a>
-               `;
-                // Append link to li
-                li.appendChild(link);
-                // Append to UL
-                taskList.appendChild(li);
-            }
-        }, 100);
-    }
-
     function displayTaskList() {
         // clear the previous task list
         while (taskList.firstChild) {
@@ -246,16 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Filtering
+    filter.addEventListener("keyup", filterTasks);
+
     function filterTasks(e) {
-        // let searchItem = filter.value;
-        // let collectionItems = document.querySelectorAll(".collection-item");
-        // collectionItems.forEach((item) => {
-        //   if (item.textContent.indexOf(searchItem)) {
-        //     item.style.display = "none";
-        //   } else {
-        //     item.style.display = "block";
-        //   }
-        // });
 
         // create the object store
         let objectStore = DB.transaction("tasks").objectStore("tasks");
@@ -298,6 +238,61 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
     }
+
+    sortAscBtn.addEventListener("click", displayTaskList);
+    sortDescBtn.addEventListener("click", sort);
+
+    function sort() {
+        let tasks = [];
+        let cursor;
+        let readRequest = DB.transaction(["tasks"])
+            .objectStore("tasks")
+            .openCursor();
+
+        readRequest.onerror = function () {
+            console.log("Error Reading");
+        };
+
+        readRequest.onsuccess = function (e) {
+            cursor = e.target.result;
+
+            if (cursor) {
+                tasks.push(cursor.value);
+                cursor.continue();
+            }
+        };
+
+        setTimeout(() => {
+            let sortedArray = Array.from(bubbleSortD(tasks));
+            while (taskList.firstChild) {
+                taskList.removeChild(taskList.firstChild);
+            }
+
+            for (let i = 0; i < sortedArray.length; i++) {
+                const li = document.createElement("li");
+                //add Attribute for delete
+                li.setAttribute("data-task-id", sortedArray[i].id);
+                li.className = "collection-item";
+                // Create text node and append it
+
+                li.appendChild(document.createTextNode(sortedArray[i].taskname));
+
+                // Create new element for the link
+                const link = document.createElement("a");
+                // Add class and the x marker for a
+                link.className = "delete-item secondary-content";
+                link.innerHTML = `
+                <i class="fa fa-remove"></i>
+               &nbsp;
+               <a href="./edit.html?id=${sortedArray[i].id}"><i class="fa fa-edit"></i> </a>
+               `;
+                // Append link to li
+                li.appendChild(link);
+                // Append to UL
+                taskList.appendChild(li);
+            }
+        }, 100);
+    }
 });
 
 function bubbleSortD(arr) {
@@ -314,5 +309,5 @@ function bubbleSortD(arr) {
     return arr;
 }
 
-// Materialzie Dropdown
+// Materialize Dropdown
 $(".dropdown-trigger").dropdown();
